@@ -5,3 +5,4 @@ def getTime() {
 
 def getJenkinsHome(){
 	return "${JENKINS_HOME}";
+}
