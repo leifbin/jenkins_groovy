@@ -1,4 +1,4 @@
-def call(){
+def call(GIT_URL){
     pipeline {
         agent {label 'node-1'}    
 
