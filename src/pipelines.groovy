@@ -1,11 +1,19 @@
-def call(int buildNumber) {
+def call() {
     pipeline {
       agent any
       stages {
-        stage('Even Stage') {
-          steps {
-            echo "The build number is even"
-          }
+        stage('Checkout') {
+            steps {
+                dir(path: "./") {
+                    git(
+                        branch: "$def_branch",
+                        credentialsId: "004cffe6-ecbb-45da-9b38-c1b7697860cb",	
+                        url: "$giturl",
+                        changelog: true	
+                    )
+
+                }
+            }
         }
       }
     }
