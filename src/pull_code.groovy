@@ -1,13 +1,10 @@
-pipeline {
-    agent {label 'node-1'}
-     stages {
-        stage('Checkout') {
+def call(GIT_URL){
             steps {
                 dir(path: "./") {
                     git(
                         branch: "$def_branch",
                         credentialsId: "004cffe6-ecbb-45da-9b38-c1b7697860cb",	
-                        url: "$giturl",
+                        url: "${GIT_URL}"
                         changelog: true	
                     )
                     sh '''
@@ -21,6 +18,4 @@ pipeline {
                     '''
                 }
             }
-        }
-     }
 }
