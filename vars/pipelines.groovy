@@ -1,3 +1,4 @@
+import log
 def call(Map map) {
 
     pipeline {
@@ -14,6 +15,7 @@ def call(Map map) {
             def Build_on_tag  = "${map.Build_on_tag}"
         }
         stages {
+            
             stage('Checkout') {
                 steps {
                     dir(path: "./") {
@@ -23,6 +25,8 @@ def call(Map map) {
                             url: "${env.GIT_URL}",
                             changelog: true	
                         )
+                    script {    
+                       log.info '开始拉去代码' 
                     sh '''
                         git status
                         if [[ -n $ver ]];then
@@ -31,7 +35,9 @@ def call(Map map) {
                         fi
                         git checkout $Build_on_tag
                         git branch
-                    '''    
+                    ''' 
+                        log.info '拉取代码结束'     
+                            }   
                     }
                 }
             }
