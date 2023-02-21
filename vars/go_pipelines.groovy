@@ -44,7 +44,7 @@ def call(Map map) {
             }
 
             stage('build') {
-            steps {
+                steps {
                 sh '''
                     # git 私库构建
                     /usr/local/go/bin/go mod tidy
@@ -64,6 +64,19 @@ def call(Map map) {
                 '''
             }
         }
-        }    
+            stage('deploy') {
+                steps {
+                sh '''
+                    cd ..
+                    
+                    tar -zcvf $tarName -C $JOB_NAME . | xargs -n 5
+
+                '''
+            }
+        }
+        
+    }
+
+    
     }    
 }
