@@ -1,4 +1,3 @@
-import log
 def call(Map map) {
 
     pipeline {
@@ -26,7 +25,7 @@ def call(Map map) {
                             changelog: true	
                         )
                     script {    
-                       log.info '开始拉去代码' 
+                       echo '开始拉去代码' 
                     sh '''
                         git status
                         if [[ -n $ver ]];then
@@ -36,7 +35,7 @@ def call(Map map) {
                         git checkout $Build_on_tag
                         git branch
                     ''' 
-                        log.info '拉取代码结束'     
+                        echo '拉取代码结束'     
                             }   
                     }
                 }
