@@ -41,6 +41,28 @@ def call(Map map) {
                     }
                 }
             }
+
+            stage('build') {
+            steps {
+                sh '''
+                    # git 私库构建
+                    /usr/bin/yarn install
+                    /usr/bin/yarn build
+                    rm -rf ${tarName}
+                    
+                    #start写入版本信息
+                    gitdes=`git describe --all`
+                    gitfm=`git show -s --format=%H`
+                    gitfom=`git show -s --format=%s`
+                    echo $gitdes > version.txt
+                    echo $gitfm >> version.txt
+                    echo $gitfom >> version.txt
+                    #end写入版本信息
+                    
+                    pwd
+                '''
+            }
+        }
         }    
     }    
 }
