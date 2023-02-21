@@ -3,9 +3,9 @@ def call(Map map) {
     pipeline {
         agent  {label map.RUN_NODE }    
         environment {
-            def proj = "${map.PROJ}"
-            def tarName = "${map.TAR_NAME}"
-            def serviceDir = "${map.Service_Dir}"
+         //   def proj = "${map.PROJ}"
+         //   def tarName = "${map.TAR_NAME}"
+         //   def serviceDir = "${map.Service_Dir}"
             def def_branch = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
             def ver = "${map.Ver}"
