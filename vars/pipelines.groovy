@@ -29,11 +29,12 @@ def call(Map map) {
                     sh '''
                         git status
                         if [[ -n $ver ]];then
-                            git checkout $Build_on_tag
+                            git checkout env.Build_on_tag
                             git reset --hard ${ver}
                         fi
                         git checkout $Build_on_tag
                         git branch
+                        echo  $Build_on_tag
                     ''' 
                         echo '拉取代码结束'     
                             }   
