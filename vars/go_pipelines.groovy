@@ -12,6 +12,7 @@ def call(Map map) {
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
             def ver = "${map.Ver}"
             def Build_on_tag  = "${map.Build_on_tag}"
+            def go_name = "${proj}"
         }
         stages {
             
