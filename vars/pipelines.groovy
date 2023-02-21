@@ -1,15 +1,15 @@
 def call(Map map) {
 
     pipeline {
-        agent  {label "node-1" }    
+        agent  {label ${map.RUN_NODE} }    
         environment {
-         //   def proj = "${map.PROJ}"
-         //   def tarName = "${map.TAR_NAME}"
-         //   def serviceDir = "${map.Service_Dir}"
+            def proj = "${map.PROJ}"
+            def tarName = "${map.TAR_NAME}"
+            def serviceDir = "${map.Service_Dir}"
             def def_branch = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
-        //  def ver = "${map.Ver}"
-         //     def Build_on_tag  = "${map.Build_on_tag}"
+            def ver = "${map.Ver}"
+            def Build_on_tag  = "${map.Build_on_tag}"
         }
         stages {
             stage('Checkout') {
@@ -21,6 +21,15 @@ def call(Map map) {
                             url: "${env.GIT_URL}",
                             changelog: true	
                         )
+                    sh '''
+                        git status
+                        if [[ -n $ver ]];then
+                            git checkout $Build_on_tag
+                            git reset --hard ${ver}
+                        fi
+                        git checkout $Build_on_tag
+                        git branch
+                    '''    
                     }
                 }
             }
