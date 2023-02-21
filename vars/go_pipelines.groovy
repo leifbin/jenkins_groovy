@@ -16,7 +16,7 @@ def call(Map map) {
         }
 
         parameters {
-        gitParameter (branch:'', branchFilter: 'origin/(.*)', defaultValue: env.def_branch, description: '选择将要构建的分支', name: 'Build_on_tag', quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG', useRepository: env.GIT_URL)
+        gitParameter (branch:'', branchFilter: 'origin/(.*)', defaultValue: "$def_branch": '选择将要构建的分支', name: 'Build_on_tag', quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG', useRepository: env.GIT_URL)
        }
         stages {
             
