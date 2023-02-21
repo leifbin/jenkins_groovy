@@ -6,7 +6,7 @@ def call(Map map) {
         }
         environment {
             def proj = "${map.PROJ}"
-            def tarName = "${proj}.tar.gz"
+            def tarName = "aaa.tar.gz"
             def serviceDir = "${map.Service_Dir}"
             def def_branch = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
