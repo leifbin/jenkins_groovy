@@ -8,7 +8,7 @@ def call(Map map) {
             def proj = "${map.PROJ}"
             def tarName = "${proj}.tar.gz"
             def serviceDir = "${map.Service_Dir}"
-            def def_branch = "${map.DEFAULT_BRANCH}"
+            def DEF_BRANCH = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
             def ver = "${map.Ver}"
             def Build_on_tag  = "${map.Build_on_tag}"
@@ -18,7 +18,7 @@ def call(Map map) {
         parameters {
         gitParameter (branch:'', 
             branchFilter: 'origin/(.*)',
-            defaultValue: "${def_branch}", 
+            defaultValue: env.DEF_BRANCH, 
             description: '选择将要构建的分支', 
             name: 'Build_on_tag', 
             quickFilterEnabled: true, 
@@ -34,7 +34,7 @@ def call(Map map) {
                 steps {
                     dir(path: "./") {
                         git(
-                            branch: "${env.def_branch}",
+                            branch: "${env.DEF_BRANCH}",
                             credentialsId: "004cffe6-ecbb-45da-9b38-c1b7697860cb",	
                             url: "${env.GIT_URL}",
                             changelog: true	
