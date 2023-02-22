@@ -29,7 +29,7 @@ def call(Map map) {
                         )
                         script {
                             echo '开始拉去代码'
-                            echo ${env.GIT_URL}
+                            echo "${env.GIT_URL}"
                             sh '''
                                     git status
                                     if [[ -n $ver ]];then
