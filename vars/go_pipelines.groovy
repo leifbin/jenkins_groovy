@@ -26,7 +26,7 @@ def call(Map map) {
             sortMode: 'DESCENDING_SMART', 
             tagFilter: '*', 
             type: 'PT_BRANCH_TAG', 
-            //useRepository: env.GIT_URL
+            useRepository: env.GIT_URL
             
             )
             }
