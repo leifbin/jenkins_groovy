@@ -5,14 +5,14 @@ def call(Map map) {
             label map.RUN_NODE
         }
         environment {
-            def proj_name = "${map.PROJ}"
-            def tarName = "${proj_name}.tar.gz"
+            def proj = "${map.PROJ}"
+            def tarName = "${proj}.tar.gz"
             def serviceDir = "${map.Service_Dir}"
             def def_branch = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
             def ver = "${map.Ver}"
             def Build_on_tag  = "${map.Build_on_tag}"
-            def go_name = "${map.go_init}"
+            def go_name = "${proj}"
         }
         stages {
             
