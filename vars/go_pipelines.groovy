@@ -16,7 +16,7 @@ def call(Map map) {
         }
 
         parameters {
-            gitParameter (branch:'', 
+            gitParameter (branch:env.def_branch, 
             branchFilter: 'origin/(.*)', 
             defaultValue:  env.def_branch, 
             description: '选择将要构建的分支', 
