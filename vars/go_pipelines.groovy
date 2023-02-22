@@ -9,14 +9,15 @@ def call(Map map) {
             def tarName = "${proj}.tar.gz"
             def serviceDir = "${map.Service_Dir}"
             def DEF_BRANCH = "${map.DEFAULT_BRANCH}"
-            //def GIT_URL = "${map.GIT_URL}" // 主项目地址
+            def GIT_URL = "${map.GIT_URL}" // 主项目地址
             def ver = "${map.Ver}"
-            def Build_on_tag  = "${map.Build_on_tag}"
+            //def Build_on_tag  = "${map.Build_on_tag}"
             def go_name = "${proj}"
         }
+
         parameters {
             gitParameter (branch:'', branchFilter: 'origin/(.*)', defaultValue:  env.def_branch, description: '选择将要构建的分支', name: 'Build_on_tag', quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG', useRepository: env.GIT_URL)
-        }
+            }
         stages {
             
             stage('Checkout') {
@@ -66,17 +67,19 @@ def call(Map map) {
                     pwd
                 '''
             }
+        }
             stage('deploy') {
                 steps {
                 sh '''
                     cd ..
                     
                     tar -zcvf $tarName -C $JOB_NAME . | xargs -n 5
-
                 '''
             }
         }
-        }
+        
+    }
+
     
     }    
 }
