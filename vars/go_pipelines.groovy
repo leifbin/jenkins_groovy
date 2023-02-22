@@ -22,7 +22,7 @@ def call(Map map) {
             description: '选择将要构建的分支', 
             name: 'Build_on_tag', 
             quickFilterEnabled: true, 
-            selectedValue: 'DEFAULT', 
+            selectedValue: 'TOP', 
             sortMode: 'DESCENDING_SMART', 
             tagFilter: '*', 
             type: 'PT_BRANCH_TAG', 
