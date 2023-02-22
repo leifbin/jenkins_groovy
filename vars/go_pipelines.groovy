@@ -14,9 +14,9 @@ def call(Map map) {
             def Build_on_tag  = "${map.Build_on_tag}"
             def go_name = "${proj}"
         }
-
+        parameters {
          gitParameter (branch:'', branchFilter: 'origin/(.*)', defaultValue:  env.def_branch, description: '选择将要构建的分支', name: 'Build_on_tag', quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG', useRepository: env.GIT_URL)
-            }
+        }
         stages {
             
             stage('Checkout') {
@@ -66,7 +66,6 @@ def call(Map map) {
                     pwd
                 '''
             }
-        }
             stage('deploy') {
                 steps {
                 sh '''
@@ -78,8 +77,7 @@ def call(Map map) {
             }
         }
         
-    }
-
     
+        }
     }    
 }
