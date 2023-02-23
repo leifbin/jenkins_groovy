@@ -9,14 +9,10 @@ def call(Map map) {
             def serviceDir = "${map.Service_Dir}"
             def DEF_BRANCH = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
-            //def ver = "${map.Ver}"
+            def ver = "${map.Ver}"
             def Build_on_tag  = "${map.Build_on_tag}"
             def go_name = "${proj}"
         }
-
-        parameters {
-           string(name: 'ver', defaultValue: "", description: '请输入commit_id ，例如：3f740c801d1d7bd4223a852396630cd9c3c97699 没有需要为空即可')
-            }
         stages {
             stage('Checkout') {
                 steps {
