@@ -9,15 +9,14 @@ def call(Map map) {
             def serviceDir = "${map.Service_Dir}"
             def DEF_BRANCH = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
-            def ver = "${map.Ver}"
-            //def Build_on_tag  = "${map.Build_on_tag}"
+            //def ver = "${map.Ver}"
+            def Build_on_tag  = "${map.Build_on_tag}"
             def go_name = "${proj}"
         }
 
         parameters {
-            gitParameter(branch:env.def_branch, branchFilter: 'origin/(.*)', defaultValue:  env.def_branch, description: '选择将要构建的分支', name: 'A', quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG')
-            gitParameter(branch:env.def_branch, branchFilter: 'origin/(.*)', defaultValue:  env.def_branch, description: '选择将要构建的分支', name: 'Build_on_tag', quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG', useRepository: env.GIT_URL)
-        }
+           string(name: 'ver', defaultValue: "", description: '请输入commit_id ，例如：3f740c801d1d7bd4223a852396630cd9c3c97699 没有需要为空即可')
+            }
         stages {
             stage('Checkout') {
                 steps {
