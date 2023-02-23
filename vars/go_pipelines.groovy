@@ -69,9 +69,90 @@ def call(Map map) {
                     cd ..
 
                     tar -zcvf $tarName -C $JOB_NAME . | xargs -n 5
+                    cd ../../ansible
+                    #创建远程版本目录
+                    ansible $hosts -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
+                    #upload tar
+                    ansible $hosts -m copy -a "src=$WORKSPACE/$tarName  dest=$serviceDir"
+                    echo "解压"
+                    ansible $hosts -m unarchive -a "src=$serviceDir/$tarName  dest=$serviceDir copy=no owner=root group=root"
                 '''
                 }
             }
-        }
+
+        stage('SvcRestartCheck') {
+            steps {
+                script {
+                sh'''
+                #"重启服务"
+                pwd
+                #ssh -p 52222 root@$hosts "$go_init stop"
+                ansible $hosts -i $WORKSPACE/../../ansible -m shell -a "$go_init stop"
+                sleep 3
+                #ssh -p 52222 root@$hosts "$go_init start"
+                ansible $hosts -i $WORKSPACE/../../ansible -m shell -a "$go_init start"
+                sleep 3
+                
+                #之后打印状态
+                '''    
+                BUILD_STATUS_SHOW = sh (
+                    script: 'ansible $hosts -i $WORKSPACE/../../ansible -m shell -a \"$go_init status\"',
+                    //script: "ssh -p 52222 root@$hosts '$go_init status'",
+                    returnStdout: true
+                ).trim()
+                echo  "BUILD_STATUS_SHOW======= $BUILD_STATUS_SHOW"    //获取状态
+                
+                //打印状态过滤是否启动成功   
+                //echo "检查是不是启动失败"
+                BUILD_IS_FAIL = sh (
+                    script: '#!/bin/sh -e\n'+ "echo \"$BUILD_STATUS_SHOW\" | grep \"${go_name} is not runing\" ",
+                        returnStatus: true
+                        ) == 0
+                //echo "BUILD_IS_FAIL?:${BUILD_IS_FAIL}"   
+                //打印状态过滤是否启动成功  如果没出现 not runing表示则false 表示程序启动成功
+                if (BUILD_IS_FAIL == true ) {
+                
+                    error("$go_name  is not running,$JOB_NAME build failed, pipeline terminated")
+                    
+                        }
+    
+                    }
+                
+                
+            
+                }
+            }
     }
+    
+     post {
+                failure {
+                //success{
+                    //当此Pipeline失败时打印消息
+                    script {
+                        withCredentials([string(credentialsId: 'bot_token', variable: 'bot_token')]){
+                        withCredentials([string(credentialsId: 'chat_id', variable: 'chat_id')]){
+                        sh'''
+                        message1=`cat version.txt`
+                        message="节点:$NODE_LABELS-项目:$JOB_NAME====构建失败\n"+$message1
+                        
+                        curl -X GET "https://api.telegram.org/bot${bot_token}/sendMessage" -d "chat_id=${chat_id}&text=${message}"
+                    '''
+                    }  }}
+                }
+                success{
+                    //当此Pipeline成功时打印消息
+                    script {
+                        withCredentials([string(credentialsId: 'bot_token', variable: 'bot_token')]){
+                        withCredentials([string(credentialsId: 'chat_id', variable: 'chat_id')]){
+                        sh'''
+                        message1=`cat version.txt` 
+                        message="节点:$NODE_LABELS-项目:$JOB_NAME====构建成功\n"+$message1
+                        
+                        curl -X GET "https://api.telegram.org/bot${bot_token}/sendMessage" -d "chat_id=${chat_id}&text=${message}"
+                    '''
+                    }  }}
+                }
+            }
+    
+}
 }
