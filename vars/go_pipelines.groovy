@@ -69,13 +69,12 @@ def call(Map map) {
                     cd ..
 
                     tar -zcvf $tarName -C $JOB_NAME . | xargs -n 5
-                    cd ../../ansible
                     #创建远程版本目录
-                    ansible $hosts -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
+                    ansible $hosts -i $WORKSPACE/../../ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
                     #upload tar
-                    ansible $hosts -m copy -a "src=$WORKSPACE/$tarName  dest=$serviceDir"
+                    ansible $hosts -i $WORKSPACE/../../ansible  -m copy -a "src=$WORKSPACE/$tarName  dest=$serviceDir"
                     echo "解压"
-                    ansible $hosts -m unarchive -a "src=$serviceDir/$tarName  dest=$serviceDir copy=no owner=root group=root"
+                    ansible $hosts -i $WORKSPACE/../../ansible -m unarchive -a "src=$serviceDir/$tarName  dest=$serviceDir copy=no owner=root group=root"
                 '''
                 }
             }
