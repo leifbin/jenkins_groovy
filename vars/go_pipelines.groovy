@@ -1,7 +1,7 @@
 def call(Map map) {
     pipeline {
         agent {
-            label map.${RUN_NODE}
+            label  map.${RUN_NODE}
         }
         environment {
             def proj = "${map.PROJ}"
