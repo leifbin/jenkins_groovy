@@ -24,14 +24,16 @@ def map = [:]
     
     // 定义项目git地址 根据实际情况调整
     map.put('GIT_URL',"ssh://git@ph-gitlab.vipsroom.net:52222/oa_back/oa_accountant_go.git")
-   
+
+    // $hosts选项参数 根据实际情况修改 
+    map.put('hosts',"203.81.183.214")    
    
     // $Build_on_tag选项参数 不需要修改 
     map.put('Build_on_tag',"$Build_on_tag") 
     //commit_id 选项参数 不需要修改
-    map.put('Ver',"$ver")
+    map.put('Ver',"")
     //定义项目构建运行的 NODE ,不需要修改，选项值可以在在参数化配置里面修改
-    map.put('RUN_NODE',"$choice_node")
+    map.put('RUN_NODE','jenkins\nnode-1')
     
 //react_pipelines(map)
 go_pipelines(map)
