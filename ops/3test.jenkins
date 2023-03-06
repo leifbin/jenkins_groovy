@@ -29,7 +29,7 @@ def map = [:]
     map.put('hosts',"203.81.183.214")    
    
     // $Build_on_tag选项参数 不需要修改 
-    map.put('Build_on_tag',"$Build_on_tag") 
+    //map.put('Build_on_tag',"$Build_on_tag") 
     //commit_id 选项参数 不需要修改
     map.put('Ver',"")
     //定义项目构建运行的 NODE ,不需要修改，选项值可以在在参数化配置里面修改
