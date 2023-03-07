@@ -10,14 +10,14 @@ def map = [:]
 
     
     // 需要修改此处，定义项目名称 根据实际情况调整
-    map.put('PROJ',"$JOB_NAME")
+    map.put('PROJ',"$JOB_BASE_NAME")
     
     
     // 需要修改此处，定义tarName
     //map.put('TAR_NAME','${PROJ}.tar.gz')
     
     // 定义webroot目录,根据实际情况调整
-    map.put('Service_Dir',"/opt/webapps/web/$JOB_NAME")
+    map.put('Service_Dir',"/opt/webapps/web/$JOB_BASE_NAME")
     
     // 定义项目默认的分支，根据实际情况调整
     map.put('DEFAULT_BRANCH','test')
