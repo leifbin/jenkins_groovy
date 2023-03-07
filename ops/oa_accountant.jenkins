@@ -26,7 +26,7 @@ def map = [:]
     map.put('GIT_URL',"ssh://git@ph-gitlab.vipsroom.net:52222/oa_back/oa_accountant_go.git")
 
     // $hosts选项参数 根据实际情况修改 
-    map.put('hosts',"203.81.183.214")    
+    map.put('hosts',"203.81.177.104")    
    
     // $Build_on_tag选项参数 不需要修改 
     //map.put('Build_on_tag',"$Build_on_tag") 

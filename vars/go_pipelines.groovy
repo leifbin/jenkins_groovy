@@ -23,6 +23,7 @@ def call(Map map) {
           //def Build_on_tag  = "${map.Build_on_tag}"
             def go_name = "${proj}"
             def HOSTS="${map.hosts}"
+            def go_name = "${proj}_service"
         }
 
         stages {

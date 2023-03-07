@@ -15,7 +15,7 @@ def map = [:]
     //map.put('TAR_NAME','${PROJ}.tar.gz')
     
     // 定义webroot目录,根据实际情况调整
-    map.put('Service_Dir',"/opt/webapps/web/$JOB_BASE_NAME")
+    map.put('Service_Dir',"/opt/webapps/go/$JOB_BASE_NAME")
     
     // 定义项目默认的分支，根据实际情况调整
     map.put('DEFAULT_BRANCH','test')
