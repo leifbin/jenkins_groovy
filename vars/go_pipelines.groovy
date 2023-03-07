@@ -78,15 +78,15 @@ def call(Map map) {
                     sh '''
                     cd ..
 
-                    tar -zcvf $tarName -C $JOB_NAME . | xargs -n 5
+                    tar -zcvf $tarName -C $JOB_BASE_NAME . | xargs -n 5
                     #创建远程版本目录
-                    #ansible $hosts -i $WORKSPACE/../../ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
+                    #ansible $hosts -i $WORKSPACE/../../../ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
                     #JENKINS_HOME
-                    ansible $hosts -i $JENKINS_HOME/ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
+                    ansible $hosts -i $WORKSPACE/../../../ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
                     #upload tar
-                    ansible $hosts -i $WORKSPACE/../../ansible  -m copy -a "src=$WORKSPACE/$tarName  dest=$serviceDir"
+                    ansible $hosts -i $WORKSPACE/../../../ansible  -m copy -a "src=$WORKSPACE/$tarName  dest=$serviceDir"
                     echo "解压"
-                    ansible $hosts -i $WORKSPACE/../../ansible -m unarchive -a "src=$serviceDir/$tarName  dest=$serviceDir copy=no owner=root group=root"
+                    ansible $hosts -i $WORKSPACE/../../../ansible -m unarchive -a "src=$serviceDir/$tarName  dest=$serviceDir copy=no owner=root group=root"
                 '''
                 }
             }
@@ -98,16 +98,16 @@ def call(Map map) {
                 #"重启服务"
                 pwd
                 #ssh -p 52222 root@$hosts "$go_init stop"
-                ansible $hosts -i $WORKSPACE/../../ansible -m shell -a "$go_init stop"
+                ansible $hosts -i $WORKSPACE/../../../ansible -m shell -a "$go_init stop"
                 sleep 3
                 #ssh -p 52222 root@$hosts "$go_init start"
-                ansible $hosts -i $WORKSPACE/../../ansible -m shell -a "$go_init start"
+                ansible $hosts -i $WORKSPACE/../../../ansible -m shell -a "$go_init start"
                 sleep 3
                 
                 #之后打印状态
                 '''    
                 BUILD_STATUS_SHOW = sh (
-                    script: 'ansible $hosts -i $WORKSPACE/../../ansible -m shell -a \"$go_init status\"',
+                    script: 'ansible $hosts -i $WORKSPACE/../../../ansible -m shell -a \"$go_init status\"',
                     //script: "ssh -p 52222 root@$hosts '$go_init status'",
                     returnStdout: true
                 ).trim()
