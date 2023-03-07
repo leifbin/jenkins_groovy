@@ -1,8 +1,8 @@
 def call(Map map) {
     pipeline {
         agent {
-            label  map.RUN_NODE
-            //label  'node-1'
+            //label  map.RUN_NODE
+            label  '$choice_node'
         }
         
         environment {
