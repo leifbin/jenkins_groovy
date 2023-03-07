@@ -19,11 +19,10 @@ def call(Map map) {
             def serviceDir = "${map.Service_Dir}"
             def DEF_BRANCH = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
-            def ver = "${map.Ver}"
-          //def Build_on_tag  = "${map.Build_on_tag}"
+            def ver = "${ver}"
             def go_name = "${proj}"
             def HOSTS="${map.hosts}"
-            def go_init = "${proj}_service"
+            def go_init = "/etc/init.d/${proj}_service"
         }
 
         stages {
