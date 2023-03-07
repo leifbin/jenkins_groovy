@@ -1,8 +1,10 @@
 def call(Map map) {
     pipeline {
         agent {
-            label  map.${RUN_NODE}
+            label  map.RUN_NODE
+            //label  'node-1'
         }
+        
         environment {
             def proj = "${map.PROJ}"
             def tarName = "${proj}.tar.gz"
