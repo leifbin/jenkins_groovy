@@ -1,7 +1,6 @@
 def call(Map map) {
     pipeline {
         agent {
-            //label  map.RUN_NODE
             label  '$choice_node'
         }
         
@@ -39,7 +38,7 @@ def call(Map map) {
                             sh '''
                                     git status
                                     if [[ -n $ver ]];then
-                                        git checkout env.Build_on_tag
+                                        git checkout $Build_on_tag
                                         git reset --hard ${ver}
                                     fi
                                     git checkout $Build_on_tag
