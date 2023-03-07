@@ -11,8 +11,6 @@ def map = [:]
     
     // 需要修改此处，定义项目名称 根据实际情况调整
     map.put('PROJ',"$JOB_NAME")
-    
-    
     // 需要修改此处，定义tarName
     //map.put('TAR_NAME','${PROJ}.tar.gz')
     
@@ -33,7 +31,7 @@ def map = [:]
     //commit_id 选项参数 不需要修改
     map.put('Ver',"")
     //定义项目构建运行的 NODE ,不需要修改，选项值可以在在参数化配置里面修改
-    map.put('RUN_NODE',"jenkins\nnode-1")
+    map.put('RUN_NODE',"jenkins")
     
 //react_pipelines(map)
 go_pipelines(map)
