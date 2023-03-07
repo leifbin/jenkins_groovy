@@ -2,7 +2,7 @@ def call(Map map) {
     pipeline {
     parameters {
             gitParameter(branch:env.def_branch, branchFilter: 'origin/(.*)', defaultValue:  env.def_branch, description: '选择将要构建的分支', name: 'Build_on_tag',quickFilterEnabled: true, selectedValue: 'TOP', sortMode: 'DESCENDING_SMART', tagFilter: '*', type: 'PT_BRANCH_TAG', useRepository: map.GIT_URL)
-            string(name: 'var', defaultValue:"",description: '请输入commit_id ，例如：3f740c801d1d7bd4223a852396630cd9c3c97699 没有需要为空即可')
+            string(name: 'var', defaultValue:'',description: '请输入commit_id ，例如：3f740c801d1d7bd4223a852396630cd9c3c97699 没有需要为空即可')
             string(name: 'hosts', defaultValue: map.hosts, description: '选则要发布的主机，根据ansable列表填写') // 定义项目对应的主机列表
             choice(name: 'choice_node', choices: map.RUN_NODE, description: '选择构建主机默认jenkins') // 定义项目对应的主机列表
             
@@ -19,9 +19,9 @@ def call(Map map) {
             def serviceDir = "${map.Service_Dir}"
             def DEF_BRANCH = "${map.DEFAULT_BRANCH}"
             def GIT_URL = "${map.GIT_URL}" // 主项目地址
-            def ver = "${ver}"
+            //def ver = "${ver}"
             def go_name = "${proj}"
-            def HOSTS="${map.hosts}"
+            //def HOSTS="${map.hosts}"
             def go_init = "/etc/init.d/${proj}_service"
         }
 
