@@ -80,7 +80,9 @@ def call(Map map) {
 
                     tar -zcvf $tarName -C $JOB_NAME . | xargs -n 5
                     #创建远程版本目录
-                    ansible $hosts -i $WORKSPACE/../../ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
+                    #ansible $hosts -i $WORKSPACE/../../ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
+                    #JENKINS_HOME
+                    ansible $hosts -i $JENKINS_HOME/ansible -m file -a "path=$serviceDir state=directory mode=0755 owner=root group=root"
                     #upload tar
                     ansible $hosts -i $WORKSPACE/../../ansible  -m copy -a "src=$WORKSPACE/$tarName  dest=$serviceDir"
                     echo "解压"
